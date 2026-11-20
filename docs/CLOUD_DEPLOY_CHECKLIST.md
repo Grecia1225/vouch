@@ -19,8 +19,8 @@ commit of the source; secrets and generated files are ignored by `.gitignore`.
    git remote add origin <your-repo-url>
    git push -u origin HEAD
    ```
-   Check `git status` first: no `.env`, `deployment.json`, `node_modules`,
-   `dist`, `artifacts` or `cache` should be tracked.
+   Check `git status` first: no `.env`, `deployment.json`, `contracts/deployments/`,
+   `node_modules`, `dist`, `artifacts` or `cache` should be tracked.
 
 2. **Blockchain.** A cloud API cannot reach a Hardhat node on your laptop.
    Deploy the contract to Polygon Amoy first (see `AMOY_GUIDE.md`) using a
