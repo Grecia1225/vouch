@@ -8,8 +8,8 @@ commit of the source; secrets and generated files are ignored by `.gitignore`.
 - `npm install` and `npm run setup` complete.
 - `npm test`: 9 contract tests pass; 62 server tests pass (60 pass, 2 platform skips).
 - `npm run build --prefix client` produces `client/dist`.
-- `render.yaml`, `client/vercel.json`, `server/Dockerfile` and `docs/DEPLOYMENT.md`
-  are present and consistent with the deployment options below.
+- `render.yaml`, `client/vercel.json`, `netlify.toml`, `server/Dockerfile` and
+  `docs/DEPLOYMENT.md` are present and consistent with the deployment options below.
 
 ## Steps you still need to do
 
@@ -48,7 +48,8 @@ commit of the source; secrets and generated files are ignored by `.gitignore`.
    ```
    VITE_API_BASE=https://<your-api>/api
    ```
-   `client/vercel.json` already handles SPA route refreshes.
+   `client/vercel.json` (Vercel) and `netlify.toml` (Netlify) already handle SPA
+   route refreshes.
 
 6. **Connect them.** Set the API's `CLIENT_URL` to the frontend origin exactly
    (no trailing slash) and redeploy the API. This controls CORS and the share
