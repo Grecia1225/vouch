@@ -4,4 +4,5 @@ artifacts
 cache
 dist
 server/deployment.json
+contracts/deployments/
 .env.docker
