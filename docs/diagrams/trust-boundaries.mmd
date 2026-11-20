@@ -1,0 +1,13 @@
+flowchart TB
+  subgraph Untrusted["UNTRUSTED: attacker-controlled"]
+    U["Browser, device clock, GPS, uploaded files, linked URLs"]
+  end
+  subgraph SemiTrusted["TRUSTED TO OPERATE, NOT TO RE-WRITE HISTORY: Vouch server"]
+    S["API, relayer key, MongoDB, audit log"]
+  end
+  subgraph Math["TRUSTED BY CONSENSUS: public blockchain"]
+    C["Contract records: hash, block time, version link"]
+  end
+  U -->|"TB1: validate everything"| S
+  S -->|"TB2: only the relayer can write"| C
+  U -.->|"TB3: independent reads need no trust in Vouch"| C

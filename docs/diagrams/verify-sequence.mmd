@@ -1,0 +1,20 @@
+sequenceDiagram
+  actor V as Verifier
+  participant W as Web app
+  participant S as Vouch API
+  participant C as Smart contract
+  V->>W: Scan certificate QR (expected hash) + add file
+  W->>S: POST /api/verify (file, expectedHash)
+  S->>S: SHA-256 of received bytes
+  S->>C: verify(hash)
+  alt hash registered
+    C-->>S: exists, timestamp, uploader ref
+    S-->>W: AUTHENTIC
+  else expected hash registered, file differs
+    S->>C: verify(expectedHash)
+    C-->>S: exists
+    S-->>W: TAMPERED
+  else nothing registered
+    S-->>W: NO RECORD FOUND
+  end
+  Note over V,C: Independent path: the browser or CLI hashes the file itself and calls the contract over JSON-RPC, so the Vouch server is not involved at all.

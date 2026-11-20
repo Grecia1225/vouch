@@ -1,0 +1,21 @@
+{
+  "name": "vouch-contracts",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "compile": "hardhat compile",
+    "test": "hardhat test",
+    "node": "hardhat node",
+    "deploy:local": "hardhat run scripts/deploy.js --network localhost",
+    "deploy:amoy": "hardhat run scripts/deploy.js --network amoy",
+    "balance": "hardhat run scripts/check-balance.js --network amoy",
+    "measure": "hardhat run scripts/measure-chain.js",
+    "measure:amoy": "hardhat run scripts/measure-chain.js --network amoy",
+    "flatten": "hardhat flatten contracts/Vouch.sol > Vouch.flat.sol"
+  },
+  "devDependencies": {
+    "@nomicfoundation/hardhat-toolbox": "^5.0.0",
+    "dotenv": "^16.4.5",
+    "hardhat": "^2.22.10"
+  }
+}

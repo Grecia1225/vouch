@@ -1,0 +1,26 @@
+flowchart LR
+  subgraph Browser["User's browser / phone"]
+    UI["React app<br/>files, camera, voice, links, QR"]
+    IND["Independent check page<br/>(hashes locally, reads chain directly)"]
+  end
+  subgraph Server["Vouch server (Node + Express)"]
+    API["REST API<br/>JWT auth, rate limits"]
+    HASH["SHA-256 + metadata analyser"]
+    AUD["Hash-chained audit log"]
+    REL["Relayer wallet<br/>(only writer)"]
+  end
+  DB[("MongoDB<br/>users, records, GridFS files, audit")]
+  subgraph Chain["Polygon / EVM network"]
+    SC["Vouch smart contract<br/>hash + time + version link"]
+  end
+  CLI["Verifier CLI<br/>(zero dependencies)"]
+
+  UI -->|HTTPS| API
+  API --> HASH
+  API --> AUD
+  API --> DB
+  API --> REL
+  REL -->|notarize / notarizeVersion| SC
+  API -.->|read| SC
+  IND -->|JSON-RPC read, no Vouch server| SC
+  CLI -->|JSON-RPC read| SC

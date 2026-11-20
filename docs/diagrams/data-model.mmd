@@ -1,0 +1,37 @@
+erDiagram
+  USER ||--o{ DOCUMENT : owns
+  DOCUMENT ||--o| DOCUMENT : "previous version"
+  DOCUMENT ||--|| FILE_GRIDFS : stores
+  DOCUMENT ||--|| CHAIN_RECORD : "anchored as"
+  USER ||--o{ AUDIT_EVENT : "acts in"
+  AUDIT_EVENT ||--o| AUDIT_EVENT : "prevHash link"
+  USER {
+    string name
+    string email
+    string passwordHash
+    int failedLogins
+    date lockedUntil
+  }
+  DOCUMENT {
+    string filename
+    string hash
+    int version
+    string previousHash
+    string txHash
+    int blockNumber
+    object metadata
+    object capture
+  }
+  AUDIT_EVENT {
+    int seq
+    string action
+    string actor
+    string prevHash
+    string hash
+  }
+  CHAIN_RECORD {
+    bytes32 docHash
+    string uploaderRef
+    uint64 timestamp
+    bytes32 previous
+  }

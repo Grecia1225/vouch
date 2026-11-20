@@ -1,0 +1,19 @@
+sequenceDiagram
+  actor U as User
+  participant W as Web app
+  participant S as Vouch API
+  participant D as MongoDB / GridFS
+  participant C as Smart contract
+  U->>W: Add files, photo, voice or link
+  W->>S: POST /api/docs/notarize (JWT, items, capture context)
+  S->>S: Fetch link safely (SSRF checks), hash each item (SHA-256)
+  S->>C: verify(hash): already registered?
+  C-->>S: not found
+  S->>S: Analyse metadata, snapshot (GPS coordinates removed)
+  S->>D: Store file (GridFS) + record
+  S->>C: notarize(hash, userRef) via relayer wallet
+  C-->>S: tx receipt (block number, block timestamp)
+  S->>D: Save tx hash, timestamp, capture context
+  S->>S: Append to hash-chained audit log
+  S-->>W: Result per item
+  W-->>U: Notarized + certificate with QR
